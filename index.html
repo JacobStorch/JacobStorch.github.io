@@ -10,7 +10,7 @@
             display: grid;
             grid-template-columns: repeat(9, 40px);
             grid-template-rows: repeat(9, 40px);
-            gap: 2px;
+            gap: 0px;
             width: fit-content;
             margin: auto;
         }
@@ -27,6 +27,21 @@
         }
         .sudoku-cell:hover {
             background-color: lightgray;
+        }
+        
+        /* Thicker borders for 3x3 sections */
+        .sudoku-cell:nth-child(3n) {
+            border-right: 3px solid black;
+        }
+        .sudoku-cell:nth-child(27n) {
+            border-bottom: 3px solid black;
+        }
+        .sudoku-cell:nth-child(9n+1) {
+            border-left: 3px solid black;
+        }
+        .sudoku-cell:nth-child(n+19):nth-child(-n+27),
+        .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+            border-bottom: 3px solid black;
         }
     </style>
 </head>
@@ -45,6 +60,7 @@
             for (let i = 0; i < 81; i++) {
                 let cell = document.createElement("div");
                 cell.classList.add("sudoku-cell");
+                cell.dataset.index = i;
                 cell.addEventListener("click", function() {
                     let number = prompt("Enter a number (1-9):");
                     if (number >= 1 && number <= 9) {
