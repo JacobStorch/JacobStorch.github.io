@@ -9,7 +9,33 @@
 <body>
     <div class="container">
         <h1>Sudoku</h1>
-        <div id="game-board"></div>
+        <div id="game-board">
+            <table>
+                <tbody>
+                    <!-- Generate 9x9 grid -->
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            let board = document.getElementById("game-board");
+                            let table = document.createElement("table");
+                            for (let i = 0; i < 9; i++) {
+                                let row = document.createElement("tr");
+                                for (let j = 0; j < 9; j++) {
+                                    let cell = document.createElement("td");
+                                    let input = document.createElement("input");
+                                    input.type = "text";
+                                    input.maxLength = 1;
+                                    input.classList.add("sudoku-cell");
+                                    cell.appendChild(input);
+                                    row.appendChild(cell);
+                                }
+                                table.appendChild(row);
+                            }
+                            board.appendChild(table);
+                        });
+                    </script>
+                </tbody>
+            </table>
+        </div>
         <div class="controls">
             <button id="new-game">New Game</button>
             <button id="solve-game">Solve</button>
