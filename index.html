@@ -5,42 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Game</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(9, 40px);
+            grid-template-rows: repeat(9, 40px);
+            gap: 2px;
+            width: fit-content;
+            margin: auto;
+        }
+        .sudoku-cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: white;
+        }
+        .sudoku-cell:hover {
+            background-color: lightgray;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Sudoku</h1>
-        <div id="game-board">
-            <table>
-                <tbody>
-                    <!-- Generate 9x9 grid -->
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            let board = document.getElementById("game-board");
-                            let table = document.createElement("table");
-                            for (let i = 0; i < 9; i++) {
-                                let row = document.createElement("tr");
-                                for (let j = 0; j < 9; j++) {
-                                    let cell = document.createElement("td");
-                                    let input = document.createElement("input");
-                                    input.type = "text";
-                                    input.maxLength = 1;
-                                    input.classList.add("sudoku-cell");
-                                    cell.appendChild(input);
-                                    row.appendChild(cell);
-                                }
-                                table.appendChild(row);
-                            }
-                            board.appendChild(table);
-                        });
-                    </script>
-                </tbody>
-            </table>
-        </div>
+        <div id="game-board"></div>
         <div class="controls">
             <button id="new-game">New Game</button>
             <button id="solve-game">Solve</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let board = document.getElementById("game-board");
+            for (let i = 0; i < 81; i++) {
+                let cell = document.createElement("div");
+                cell.classList.add("sudoku-cell");
+                cell.addEventListener("click", function() {
+                    let number = prompt("Enter a number (1-9):");
+                    if (number >= 1 && number <= 9) {
+                        cell.textContent = number;
+                    }
+                });
+                board.appendChild(cell);
+            }
+        });
+    </script>
 </body>
 </html>
