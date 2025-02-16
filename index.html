@@ -32,8 +32,7 @@
         .sudoku-cell:nth-child(n+64),
         .sudoku-cell:nth-child(n+10):nth-child(-n+27),
         .sudoku-cell:nth-child(n+37):nth-child(-n+54) { border-top: 1px solid black; } 
-        .sudoku-cell:nth-child(3n) { border-right: 3px solid black; } /* Right border of every 3rd cell */
-        .sudoku-cell:nth-child(9n+1) { border-left: 3px solid black; }
+        .sudoku-cell:nth-child(9n+1):(9n+2) { border-left: 3px solid black; }
     </style>
 </head>
 <body>
