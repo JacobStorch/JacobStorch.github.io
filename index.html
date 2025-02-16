@@ -29,7 +29,8 @@
         }
         
         /* Thicker borders for 3x3 sections */
-        .sudoku-cell:nth-child(n-63):nth-child(n-47) { border-top: 1px solid black; } /* Bottom border of last 3 rows */
+        .sudoku-cell:nth-child(n+64),
+        .sudoku-cell:nth-child(n+10):nth-child(n+28) { border-top: 1px solid black; } /* Bottom border of last 3 rows */
         .sudoku-cell:nth-child(3n) { border-right: 3px solid black; } /* Right border of every 3rd cell */
         .sudoku-cell:nth-child(9n+1) { border-left: 3px solid black; }
     </style>
