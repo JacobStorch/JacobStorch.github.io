@@ -32,8 +32,9 @@ n<!DOCTYPE html>
         .sudoku-cell:nth-child(n+64),
         .sudoku-cell:nth-child(n+10):nth-child(-n+27),
         .sudoku-cell:nth-child(n+37):nth-child(-n+54) { border-top: 1px solid green; }
-        .sudoku-cell:nth-child(3n):nth-child(-n+81) { border-right: 1px solid black; }
-        .sudoku-cell:nth-child(3n+1):nth-child(-n+81) { border-left: 1px solid black; }
+        .sudoku-cell:nth-child(3n-1):nth-child(-n+81) { border-right: 1px solid black; }
+        .sudoku-cell:nth-child(3n-1):nth-child(-n+81),
+        .sudoku-cell:nth-child(3n):nth-child(-n+81) { border-left: 1px solid black; }
     </style>
 </head>
 <body>
