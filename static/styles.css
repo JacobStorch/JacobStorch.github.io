@@ -1,0 +1,82 @@
+/* Center the game container */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Sudoku title */
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Sudoku board styles */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(9, 40px);
+    grid-template-rows: repeat(9, 40px);
+    gap: 1px;
+    background-color: black;
+    padding: 5px;
+    margin: 20px auto;
+    width: fit-content;
+}
+
+/* Individual cell styling */
+.sudoku-cell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    font-size: 20px;
+    background-color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Highlight cell on hover */
+.sudoku-cell:hover {
+    background-color: lightgray;
+}
+
+/* Thicker borders for 3x3 boxes */
+.sudoku-cell:nth-child(3n) {
+    border-right: 3px solid black;
+}
+
+.sudoku-cell:nth-child(n+28):nth-child(-n+36),
+.sudoku-cell:nth-child(n+55):nth-child(-n+63) {
+    border-top: 3px solid black;
+}
+
+/* Controls section */
+.controls {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+input[type="number"] {
+    padding: 8px;
+    font-size: 16px;
+    width: 60px;
+    text-align: center;
+}
