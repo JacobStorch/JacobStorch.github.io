@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-import sudoku  # Import your existing sudoku.py file
+import sudoku, os  # Import your existing sudoku.py file
 
 app = Flask(__name__)
 
@@ -23,4 +23,5 @@ def get_board():
     return jsonify({"error": "Board not found"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT is missing
+    app.run(host="0.0.0.0", port=port, debug=True)
