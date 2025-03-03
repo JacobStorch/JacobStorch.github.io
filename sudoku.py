@@ -3,11 +3,6 @@ import random
 import time
 import sys
 
-from flask import Flask, render_template, jsonify
-
-app = Flask(__name__)
-
-
 
 def s_gen():
 
