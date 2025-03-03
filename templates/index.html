@@ -6,36 +6,6 @@
     <title>Sudoku Game</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
-    <style>
-        #game-board {
-            display: grid;
-            grid-template-columns: repeat(9, 40px);
-            grid-template-rows: repeat(9, 40px);
-            width: fit-content;
-            margin: auto;
-        }
-        .sudoku-cell {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid black;
-            font-size: 20px;
-            cursor: pointer;
-            background-color: white;
-        }
-        .sudoku-cell:hover {
-            background-color: lightgray;
-        }
-        
-        /* Thicker borders for 3x3 sections */
-        .sudoku-cell:nth-child(n+64),
-        .sudoku-cell:nth-child(n+10):nth-child(-n+27),
-        .sudoku-cell:nth-child(n+37):nth-child(-n+54) { border-top: 1px solid green; }
-        .sudoku-cell:nth-child(3n-1):nth-child(-n+81),
-        .sudoku-cell:nth-child(3n):nth-child(-n+81) { border-left: 1px solid black; }
-    </style>
 </head>
 <body>
     <div class="container">
