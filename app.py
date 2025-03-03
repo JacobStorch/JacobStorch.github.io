@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import sudoku  # This imports your existing sudoku.py file
 
 app = Flask(__name__)
@@ -12,6 +12,18 @@ def remove_cells():
     sudoku.remove_init(r_count)  # Modify the remove_init function to accept r_count
 
     return jsonify({'status': 'success', 'message': f'Removed {r_count} cells'})
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/get-board")
+def get_board():
+    return jsonify(board)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 
 if __name__ == '__main__':
