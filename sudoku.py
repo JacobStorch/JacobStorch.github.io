@@ -3,7 +3,9 @@ import random
 import time
 import sys
 
+from flask import Flask, render_template, jsonify
 
+app = Flask(__name__)
 
 
 
@@ -240,3 +242,17 @@ def unique_candidate(row, col):
 
 s_gen()
 remove_init()
+
+
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/get-board")
+def get_board():
+    return jsonify(board)
+
+if __name__ == "__main__":
+    app.run(debug=True)
