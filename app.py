@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import sudoku  # This imports your existing sudoku.py file
+from sudoku import board
 
 app = Flask(__name__)
 
