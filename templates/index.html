@@ -20,22 +20,5 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let board = document.getElementById("game-board");
-            for (let i = 0; i < 81; i++) {
-                let cell = document.createElement("div");
-                cell.classList.add("sudoku-cell");
-                cell.dataset.index = i;
-                cell.addEventListener("click", function() {
-                    let number = prompt("Enter a number (1-9):");
-                    if (number >= 1 && number <= 9) {
-                        cell.textContent = number;
-                    }
-                });
-                board.appendChild(cell);
-            }
-        });
-    </script>
 </body>
 </html>
