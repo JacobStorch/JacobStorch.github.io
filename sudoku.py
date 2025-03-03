@@ -235,13 +235,4 @@ s_gen()
 
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
 
-@app.route("/get-board")
-def get_board():
-    return jsonify(board)
-
-if __name__ == "__main__":
-    app.run(debug=True)
