@@ -231,18 +231,12 @@ def unique_candidate(row, col):
         return True
 
 
-        
-            
-
-    
-            
+             
 
 
 
 
 s_gen()
-remove_init()
-
 
 
 
