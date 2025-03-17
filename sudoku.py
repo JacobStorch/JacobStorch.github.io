@@ -268,4 +268,3 @@ def unique_candidate(row, col):
 
 
 s_gen()
-remove_init()
