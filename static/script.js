@@ -27,4 +27,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("remove-cells").addEventListener("click", function () {
+        let rCount = document.getElementById("cells-to-remove").value;
+
+        fetch("/remove_cells", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ r_count: rCount }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);
+            alert(data.message);  // Show confirmation
+        })
+        .catch(error => console.error("Error:", error));
+    });
+});
+
 console.log("Script loaded!"); 
