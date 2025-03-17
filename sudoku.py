@@ -135,7 +135,6 @@ def remove_cells(strategies, remove_count):
             board[r_row][r_col] = None
             target_cell_num=0
             i+=1
-    print_sudoku(board)
 
 def strat_init(row, col):
     box = (col//3)+(row//3)*3
@@ -201,7 +200,6 @@ def update_candidates():
             col_set = {cell() for cell in cols[col]}
             box_set = {cell() for cell in boxes[box]}
             related_set= row_set.union(col_set, box_set) #all related cells
-            print(board, related_set)
 
             remove_list = []
             for can in candidates[row][col]:
@@ -216,7 +214,6 @@ def sole_candidate(row, col):#returns True if only 1 candidate for given cell
     #reduce_candidates
     update_candidates()
     c_candidates = candidates[row][col]
-    print(rows,row,col,c_candidates)
 
 
     return len(c_candidates)==1
