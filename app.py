@@ -22,6 +22,11 @@ def get_board():
         return jsonify(sudoku.board)
     return jsonify({"error": "Board not found"}), 500
 
+@app.route("/new_game", methods=["POST"])
+def new_game():
+    board = sudoku.s_gen()  # Call s_gen() to generate a new Sudoku board
+    return jsonify({"status": "success", "board": board})  # Send board data
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))  # Default to 10000 if PORT is missing
     app.run(host="0.0.0.0", port=port, debug=True)
