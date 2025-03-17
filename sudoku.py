@@ -4,6 +4,9 @@ import time
 import sys
 
 
+
+
+
 def s_gen():
 
     global rows, cols, boxes, board
@@ -81,7 +84,7 @@ def print_sudoku(board): #gptd
         if row_index % 3 == 2 and row_index != 8:
             print("-" * 21)
 
-def remove_init(r_count):
+def remove_init():
 
     global candidates
     global candidate_cols, candidate_boxes
@@ -91,7 +94,10 @@ def remove_init(r_count):
 
 
     print('remove')
-    strategies = [sole_candidate,unique_candidate]
+    strategies = [sole_candidate]#,unique_candidate]
+
+    r_count = input("How many cells to remove?")
+    r_count = int(r_count)
     remove_cells(strategies,r_count)
 
 
@@ -180,10 +186,39 @@ def update_sole_candidates(row, col): #updates the possible candidates for a giv
 
     return set(cell_candidates)
 
+def update_candidates():
+    for row in range(len(rows)):
+        for col in range(len(cols)):
+
+            if rows[row][col] != None:
+                candidates[row][col] = {rows[row][col]}
+            temp = rows[row][col]
+            rows[row][col] = None
+
+
+            box = (col//3)+(row//3)*3
+
+            row_set = {cell for cell in rows[row]}
+            col_set = {cell() for cell in cols[col]}
+            box_set = {cell() for cell in boxes[box]}
+            related_set= row_set.union(col_set, box_set) #all related cells
+            print(board, related_set)
+
+            remove_list = []
+            for can in candidates[row][col]:
+                if can in related_set:
+                    remove_list.append(can)
+
+            [candidates[row][col].remove(val) for val in remove_list]
+            rows[row][col] = temp
+
 
 def sole_candidate(row, col):#returns True if only 1 candidate for given cell
-    reduce_candidates
-    c_candidates = update_sole_candidates(row, col)
+    #reduce_candidates
+    update_candidates()
+    c_candidates = candidates[row][col]
+    print(rows,row,col,c_candidates)
+
 
     return len(c_candidates)==1
 
@@ -196,9 +231,7 @@ def unique_candidate(row, col):
     # print(row,col)
     # print(rc_to_box(row,col)["box_cell"])
 
-    for temp_row in range(len(rows)):
-        for temp_col in range(len(cols)):
-            candidates[temp_row][temp_col] = update_sole_candidates(temp_row, temp_col)
+    update_candidates()
 
     rcb_candidates = set()
 
@@ -226,13 +259,14 @@ def unique_candidate(row, col):
         return True
 
 
-             
+        
+            
+
+    
+            
 
 
 
 
 s_gen()
-
-
-
-
+remove_init()
