@@ -84,7 +84,7 @@ def print_sudoku(board): #gptd
         if row_index % 3 == 2 and row_index != 8:
             print("-" * 21)
 
-def remove_init():
+def remove_init(r_count):
 
     global candidates
     global candidate_cols, candidate_boxes
@@ -96,7 +96,6 @@ def remove_init():
     print('remove')
     strategies = [sole_candidate]#,unique_candidate]
 
-    r_count = input("How many cells to remove?")
     r_count = int(r_count)
     remove_cells(strategies,r_count)
 
