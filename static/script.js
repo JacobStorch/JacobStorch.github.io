@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             console.log(data.message);
-            alert(data.message);  // Show confirmation
         })
         .catch(error => console.error("Error:", error));
     });
