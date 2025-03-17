@@ -1,33 +1,25 @@
-document.addEventListener("DOMContentLoaded", function() {
-    fetch("/get-board")
-        .then(response => response.json())
-        .then(sudokuBoard => {
-            let board = document.getElementById("game-board");
-
-            for (let row = 0; row < 9; row++) {
-                for (let col = 0; col < 9; col++) {
-                    let cell = document.createElement("div");
-                    cell.classList.add("sudoku-cell");
-                    cell.dataset.index = row * 9 + col;
-
-                    if (sudokuBoard[row][col] !== null) {
-                        cell.textContent = sudokuBoard[row][col];
-                        cell.style.fontWeight = "bold"; // Make initial numbers stand out
-                    } else {
-                        cell.addEventListener("click", function() {
-                            let number = prompt("Enter a number (1-9):");
-                            if (number >= 1 && number <= 9) {
-                                cell.textContent = number;
-                            }
-                        });
-                    }
-                    board.appendChild(cell);
-                }
-            }
-        });
-});
-
 document.addEventListener("DOMContentLoaded", function () {
+    // Fetch and display the initial board
+    loadBoard();
+
+    // Event listener for New Game button
+    document.getElementById("new-game").addEventListener("click", function () {
+        fetch("/new_game", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                updateGameBoard(data.board);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+
+    // Event listener for Remove Cells button
     document.getElementById("remove-cells").addEventListener("click", function () {
         let rCount = document.getElementById("cells-to-remove").value;
 
@@ -41,46 +33,47 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             console.log(data.message);
+            loadBoard(); // Reload board after removing cells
         })
         .catch(error => console.error("Error:", error));
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("new-game").addEventListener("click", function () {
-        fetch("/new_game", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+// Function to fetch and display the Sudoku board
+function loadBoard() {
+    fetch("/get-board")
         .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                updateGameBoard(data.board);  // Function to update the board
-            }
+        .then(board => {
+            updateGameBoard(board);
         })
-        .catch(error => console.error("Error:", error));
-    });
-});
-
-function updateGameBoard(board) {
-    let boardElement = document.getElementById("game-board");
-    boardElement.innerHTML = "";  // Clear existing board
-
-    for (let i = 0; i < 81; i++) {
-        let cell = document.createElement("div");
-        cell.classList.add("sudoku-cell");
-        cell.dataset.index = i;
-        cell.textContent = board[Math.floor(i / 9)][i % 9] || ""; // Fill cell with value
-        cell.addEventListener("click", function () {
-            let number = prompt("Enter a number (1-9):");
-            if (number >= 1 && number <= 9) {
-                cell.textContent = number;
-            }
-        });
-        boardElement.appendChild(cell);
-    }
+        .catch(error => console.error("Error fetching board:", error));
 }
 
-console.log("Script loaded!"); 
+// Function to update the game board dynamically
+function updateGameBoard(board) {
+    let boardElement = document.getElementById("game-board");
+    boardElement.innerHTML = ""; // Clear existing board
+
+    for (let row = 0; row < 9; row++) {
+        for (let col = 0; col < 9; col++) {
+            let cell = document.createElement("div");
+            cell.classList.add("sudoku-cell");
+
+            let value = board[row][col];
+            if (value !== 0) {
+                cell.textContent = value; // Show pre-filled number
+                cell.style.fontWeight = "bold"; // Make initial numbers stand out
+            } else {
+                cell.textContent = "";
+                cell.addEventListener("click", function () {
+                    let number = prompt("Enter a number (1-9):");
+                    if (number >= 1 && number <= 9) {
+                        cell.textContent = number;
+                    }
+                });
+            }
+
+            boardElement.appendChild(cell);
+        }
+    }
+}
