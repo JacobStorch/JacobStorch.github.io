@@ -47,4 +47,41 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("new-game").addEventListener("click", function () {
+        fetch("/new_game", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                updateGameBoard(data.board);  // Function to update the board
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+});
+
+function updateGameBoard(board) {
+    let boardElement = document.getElementById("game-board");
+    boardElement.innerHTML = "";  // Clear existing board
+
+    for (let i = 0; i < 81; i++) {
+        let cell = document.createElement("div");
+        cell.classList.add("sudoku-cell");
+        cell.dataset.index = i;
+        cell.textContent = board[Math.floor(i / 9)][i % 9] || ""; // Fill cell with value
+        cell.addEventListener("click", function () {
+            let number = prompt("Enter a number (1-9):");
+            if (number >= 1 && number <= 9) {
+                cell.textContent = number;
+            }
+        });
+        boardElement.appendChild(cell);
+    }
+}
+
 console.log("Script loaded!"); 
