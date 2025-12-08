@@ -55,7 +55,9 @@ h1 {
 }
 
 /* Thick left borders for columns 1, 4, 7 */
-.sudoku-cell:nth-child(9n+1) {
+.sudoku-cell:nth-child(9n+1),
+.sudoku-cell:nth-child(9n+4),
+.sudoku-cell:nth-child(9n+7) {
     border-left: 3px solid black;
 }
 
