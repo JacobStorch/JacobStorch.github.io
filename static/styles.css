@@ -21,28 +21,50 @@ h1 {
     width: fit-content;
     margin: auto;
 }
+
 .sudoku-cell {
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid black;
+    border: 1px solid #999;
     font-size: 20px;
     cursor: pointer;
     background-color: white;
 }
+
 .sudoku-cell:hover {
     background-color: lightgray;
 }
 
-/* Thicker borders for 3x3 sections */
-.sudoku-cell:nth-child(n+64),
-.sudoku-cell:nth-child(n+10):nth-child(-n+27),
-.sudoku-cell:nth-child(n+37):nth-child(-n+54) { border-top: 1px solid green; }
-.sudoku-cell:nth-child(3n-1):nth-child(-n+81),
-.sudoku-cell:nth-child(3n):nth-child(-n+81) { border-left: 1px solid black; }
+/* Thicker borders around 3x3 boxes */
 
+/* Thick top borders for rows 1, 4, 7 */
+.sudoku-cell:nth-child(-n+9),
+.sudoku-cell:nth-child(n+28):nth-child(-n+36),
+.sudoku-cell:nth-child(n+55):nth-child(-n+63) {
+    border-top: 3px solid black;
+}
+
+/* Thick bottom borders for rows 3, 6, 9 */
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54),
+.sudoku-cell:nth-child(n+73):nth-child(-n+81) {
+    border-bottom: 3px solid black;
+}
+
+/* Thick left borders for columns 1, 4, 7 */
+.sudoku-cell:nth-child(9n+1) {
+    border-left: 3px solid black;
+}
+
+/* Thick right borders for columns 3, 6, 9 */
+.sudoku-cell:nth-child(9n+3),
+.sudoku-cell:nth-child(9n+6),
+.sudoku-cell:nth-child(9n+9) {
+    border-right: 3px solid black;
+}
 
 /* Controls section */
 .controls {
