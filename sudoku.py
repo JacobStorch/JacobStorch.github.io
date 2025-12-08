@@ -326,8 +326,10 @@ def one_solution_check(target, temp, numbers_removed): #makes sure the sudoku on
                     return True
     
     return False
-    
-            
+
+def get_current_board():
+    return board
 
 
 s_gen()
+
