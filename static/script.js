@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event listener for Remove Cells button
     document.getElementById("remove-cells").addEventListener("click", function () {
-        let rCount = document.getElementById("cells-to-remove").value;
+        let rCount = document.getElementById("cells-selected").value;
 
         fetch("/remove_cells", {
             method: "POST",
