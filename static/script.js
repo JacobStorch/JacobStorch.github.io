@@ -37,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
             body: JSON.stringify({ r_count: rCount }),
         })
         .then(response => response.json())
+        .then(board => {
+            updateGameBoard(board);
+        })
         .then(data => {
             console.log(data.message);
             loadBoard(); // Reload board after removing cells
