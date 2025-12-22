@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to fetch and display the Sudoku board
 function loadBoard() {
-    fetch("/get-board")
+    fetch("/get_board")
         .then(response => response.json())
         .then(data => {
             updateGameBoard(data.board);
