@@ -16,7 +16,7 @@ def remove_cells():
     board = sudoku.remove_init(r_count)
     return jsonify({'status': 'success', 'board': board})
 
-@app.route("/get-board")
+@app.route("/get_board")
 def get_board():
     # Return the current board state
     board = sudoku.get_current_board()  # Assuming this function returns the current board
