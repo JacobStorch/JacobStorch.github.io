@@ -86,6 +86,7 @@ function select_cells(row, col, cell, board) {
     cell.addEventListener("click", function () {
         if (cell_select == true) {
             cell.classList.toggle("selected");
+            const selectedCells = document.querySelectorAll(".sudoku-cell.selected");
         } else {
             let number = prompt("Enter a number (1-9):");
             if (number >= 1 && number <= 9) {
