@@ -72,7 +72,7 @@ function updateGameBoard(board) {
                 cell.style.fontWeight = "bold"; // Make initial numbers stand out
             } else {
                 cell.textContent = "";
-                if cell_select {
+                if (cell_select == True) {
                     cell.classList.toggle("selected");
                 } else {
                     cell.addEventListener("click", function () {
