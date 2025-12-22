@@ -18,9 +18,8 @@ def remove_cells():
 
 @app.route("/get_board")
 def get_board():
-    # Return the current board state
-    board = sudoku.get_current_board()  # Assuming this function returns the current board
-    return jsonify(board)
+    board = sudoku.get_current_board()
+    return jsonify({"board": board})
 
 @app.route("/")
 def index():
