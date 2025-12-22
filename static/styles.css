@@ -38,6 +38,10 @@ h1 {
     background-color: lightgray;
 }
 
+.sudoku-cell.selected {
+    background-color: lightsalmon;
+}
+
 /* Thicker borders around 3x3 boxes */
 
 /* Thick top borders for rows 1, 4, 7 */
