@@ -80,8 +80,8 @@ function updateGameBoard(board) {
                         if (number >= 1 && number <= 9) {
                             cell.textContent = number;
                         }
-                    }
-                });
+                    });
+                }
             }
 
             boardElement.appendChild(cell);
