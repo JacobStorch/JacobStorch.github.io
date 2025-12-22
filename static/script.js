@@ -65,7 +65,7 @@ function updateGameBoard(board) {
             let cell = document.createElement("div");
             cell.classList.add("sudoku-cell");
 
-            cell = select_cells(row, col, cell)
+            cell = select_cells(row, col, cell, board)
             
             boardElement.appendChild(cell);
         }
@@ -73,7 +73,7 @@ function updateGameBoard(board) {
 }
 
 
-function select_cells(row, col, cell) {
+function select_cells(row, col, cell, board) {
     let value = board[row][col];
     let cell_select = true;
     if (value !== 0) {
