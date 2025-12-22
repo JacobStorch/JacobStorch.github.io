@@ -43,9 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadBoard() {
     fetch("/get-board")
         .then(response => response.json())
-        .then(board => {
-            updateGameBoard(board);
-        })
         .catch(error => console.error("Error fetching board:", error));
 }
 
