@@ -59,7 +59,6 @@ function updateGameBoard(board) {
     let boardElement = document.getElementById("game-board");
     boardElement.innerHTML = ""; // Clear existing board
 
-    let cell_select = true; 
 
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
@@ -67,24 +66,29 @@ function updateGameBoard(board) {
             cell.classList.add("sudoku-cell");
 
             let value = board[row][col];
-            if (value !== 0) {
-                cell.textContent = value; // Show pre-filled number
-                cell.style.fontWeight = "bold"; // Make initial numbers stand out
-            } else {
-                cell.textContent = "";
-                if (cell_select == true) {
-                    cell.classList.toggle("selected");
-                } else {
-                    cell.addEventListener("click", function () {
-                        let number = prompt("Enter a number (1-9):");
-                        if (number >= 1 && number <= 9) {
-                            cell.textContent = number;
-                        }
-                    });
-                }
-            }
 
+            select_cells(value)
+            
             boardElement.appendChild(cell);
         }
     }
 }
+function select_cells(value) {
+    let cell_select = true;
+    if (value !== 0) {
+        cell.textContent = value; // Show pre-filled number
+        cell.style.fontWeight = "bold"; // Make initial numbers stand out
+    } else {
+        cell.textContent = "";
+        if (cell_select == true) {
+            cell.classList.toggle("selected");
+        } else {
+            cell.addEventListener("click", function () {
+                let number = prompt("Enter a number (1-9):");
+                if (number >= 1 && number <= 9) {
+                    cell.textContent = number;
+                }
+            });
+        }
+    }
+    
