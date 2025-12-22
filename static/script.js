@@ -67,7 +67,7 @@ function updateGameBoard(board) {
 
             let value = board[row][col];
 
-            select_cells(value)
+            cell = select_cells(value)
             
             boardElement.appendChild(cell);
         }
@@ -92,5 +92,6 @@ function select_cells(value) {
             }
         }
     });
+    return cell
 }
     
