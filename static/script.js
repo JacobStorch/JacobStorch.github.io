@@ -59,6 +59,8 @@ function updateGameBoard(board) {
     let boardElement = document.getElementById("game-board");
     boardElement.innerHTML = ""; // Clear existing board
 
+    let cell_select = True; 
+
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
             let cell = document.createElement("div");
@@ -70,10 +72,14 @@ function updateGameBoard(board) {
                 cell.style.fontWeight = "bold"; // Make initial numbers stand out
             } else {
                 cell.textContent = "";
-                cell.addEventListener("click", function () {
-                    let number = prompt("Enter a number (1-9):");
-                    if (number >= 1 && number <= 9) {
-                        cell.textContent = number;
+                if cell_select {
+                    cell.classList.toggle("selected");
+                } else {
+                    cell.addEventListener("click", function () {
+                        let number = prompt("Enter a number (1-9):");
+                        if (number >= 1 && number <= 9) {
+                            cell.textContent = number;
+                        }
                     }
                 });
             }
