@@ -65,15 +65,16 @@ function updateGameBoard(board) {
             let cell = document.createElement("div");
             cell.classList.add("sudoku-cell");
 
-            let value = board[row][col];
-
-            cell = select_cells(value)
+            cell = select_cells(row, col, cell)
             
             boardElement.appendChild(cell);
         }
     }
 }
-function select_cells(value) {
+
+
+function select_cells(row, col, cell) {
+    let value = board[row][col];
     let cell_select = true;
     if (value !== 0) {
         cell.textContent = value; // Show pre-filled number
