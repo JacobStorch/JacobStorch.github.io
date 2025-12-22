@@ -19,6 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error:", error));
     });
 
+    document.querySelectorAll('.sudoku-cell').forEach(cell => {
+      cell.addEventListener('click', () => {
+        cell.classList.toggle('selected');
+      });
+    });
+
     // Event listener for Remove Cells button
     document.getElementById("remove-cells").addEventListener("click", function () {
         let rCount = document.getElementById("cells-selected").value;
