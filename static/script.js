@@ -39,12 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(board => {
             updateGameBoard(board);
+            console.log(data.message);
         })
         .then(data => {
             console.log(data.message);
             loadBoard(); // Reload board after removing cells
         })
-        .catch(error => console.error("Error:", error));
     });
 });
 
