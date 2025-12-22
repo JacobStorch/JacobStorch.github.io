@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch and display the initial board
     loadBoard();
+    updateGameBoard(data.board);
 
     // Event listener for New Game button
     document.getElementById("new-game").addEventListener("click", function () {
