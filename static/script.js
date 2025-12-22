@@ -59,7 +59,7 @@ function updateGameBoard(board) {
     let boardElement = document.getElementById("game-board");
     boardElement.innerHTML = ""; // Clear existing board
 
-    let cell_select = True; 
+    let cell_select = true; 
 
     for (let row = 0; row < 9; row++) {
         for (let col = 0; col < 9; col++) {
@@ -72,7 +72,7 @@ function updateGameBoard(board) {
                 cell.style.fontWeight = "bold"; // Make initial numbers stand out
             } else {
                 cell.textContent = "";
-                if (cell_select == True) {
+                if (cell_select == true) {
                     cell.classList.toggle("selected");
                 } else {
                     cell.addEventListener("click", function () {
