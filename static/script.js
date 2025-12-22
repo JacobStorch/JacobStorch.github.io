@@ -80,15 +80,17 @@ function select_cells(value) {
         cell.style.fontWeight = "bold"; // Make initial numbers stand out
     } else {
         cell.textContent = "";
+    }
+    
+    cell.addEventListener("click", function () {
         if (cell_select == true) {
             cell.classList.toggle("selected");
         } else {
-            cell.addEventListener("click", function () {
-                let number = prompt("Enter a number (1-9):");
-                if (number >= 1 && number <= 9) {
-                    cell.textContent = number;
-                }
-            });
+            let number = prompt("Enter a number (1-9):");
+            if (number >= 1 && number <= 9) {
+                cell.textContent = number;
+            }
         }
-    }
+    });
+}
     
