@@ -26,15 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Event listener for Remove Cells button
-    document.getElementById("remove-cells").addEventListener("click", function () {
+    document.getElementById("create-board").addEventListener("click", function () {
         let rCount = document.getElementById("cells-selected").value;
 
-        fetch("/remove_cells", {
+        fetch("create_board", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ r_count: rCount }),
         })
         .then(response => response.json())
         .then(board => {
