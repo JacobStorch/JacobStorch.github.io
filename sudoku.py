@@ -4,8 +4,8 @@ import time
 import sys
 import itertools as itt
 
-
-
+global board
+board = [[None for i in range(9)] for j in range(9)]
 
 
 def s_gen():
@@ -329,5 +329,6 @@ def one_solution_check(target, temp, numbers_removed): #makes sure the sudoku on
 
 def get_current_board():
     return board
+
 
 
