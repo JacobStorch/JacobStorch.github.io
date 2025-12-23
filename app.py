@@ -21,7 +21,7 @@ def get_board():
     board = sudoku.get_current_board()
     return jsonify({"board": board})
 
-@app.route("/create_board")
+@app.route("/create_board", methods=["POST"])
 def create_board():
     sudoku.s_gen()
     board = sudoku.get_current_board()
