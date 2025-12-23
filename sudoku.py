@@ -331,5 +331,3 @@ def get_current_board():
     return board
 
 
-s_gen()
-
