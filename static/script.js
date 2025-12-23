@@ -37,11 +37,32 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(board => {
+            create_board()
             updateGameBoard(data.board);
             console.log(data.status);
         })
     });
 });
+
+function create_board() {
+    const all_cells = document.querySelectorAll(".sudoku-cell");
+    let all_cells_arr = []
+    
+    all_cells.forEach(cell => {
+        all_cells_arr.push([Number(cell.dataset.row), Number(cell.dataset.col)])
+    });
+    
+    let keep_cells = []
+    selectedCells.forEach(cell => {
+        keep_cells.push([Number(cell.dataset.row), Number(cell.dataset.col)])
+    });
+
+    const remove_cells = all_cells_arr.filter(element => !keep_cells.includes(element))
+    console.log(remove_cells)
+    
+    
+}
+
 
 // Function to fetch and display the Sudoku board
 function loadBoard() {
@@ -64,7 +85,7 @@ function updateGameBoard(board) {
             let cell = document.createElement("div");
             cell.classList.add("sudoku-cell");
 
-            cell = select_cells(row, col, cell, board)
+            cell = create_cells(row, col, cell, board)
             
             boardElement.appendChild(cell);
         }
@@ -72,9 +93,14 @@ function updateGameBoard(board) {
 }
 
 
-function select_cells(row, col, cell, board) {
+function create_cells(row, col, cell, board) {
     let value = board[row][col];
     let cell_select = true;
+    let keep_cells = []
+
+    cell.dataset.row = row;
+    cell.dataset.col = col;
+    
     if (value !== 0) {
         cell.textContent = value; // Show pre-filled number
         cell.style.fontWeight = "bold"; // Make initial numbers stand out
@@ -87,6 +113,9 @@ function select_cells(row, col, cell, board) {
             cell.classList.toggle("selected");
             const selected_cells = document.querySelectorAll(".sudoku-cell.selected");
             document.getElementById("cells-selected").textContent = 'Cells currently selected: '+selected_cells.length
+
+            
+            
         } else {
             let number = prompt("Enter a number (1-9):");
             if (number >= 1 && number <= 9) {
