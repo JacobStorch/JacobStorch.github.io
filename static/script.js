@@ -27,8 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event listener for Remove Cells button
     document.getElementById("create-board").addEventListener("click", function () {
-        let rCount = document.getElementById("cells-selected").value;
-
         fetch("create_board", {
             method: "POST",
             headers: {
