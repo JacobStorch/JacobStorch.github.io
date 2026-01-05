@@ -16,15 +16,15 @@ h1 {
 /* Sudoku board styles */
 #game-board {
     display: grid;
-    grid-template-columns: repeat(9, 40px);
-    grid-template-rows: repeat(9, 40px);
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
     width: fit-content;
     margin: auto;
 }
 
 .sudoku-cell {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,4 +97,14 @@ input[type="number"] {
     font-size: 16px;
     width: 60px;
     text-align: center;
+}
+
+.side-menu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 100px;
+    margin-top: 0px;
+    margin-right: 10px;
+    right: 0;
 }

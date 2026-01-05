@@ -9,15 +9,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>Sudoku</h1>
+        <h1>Draw Your Own Sudoku</h1>
+        <label>For most accurate results, please select 3 cells per box</label>
+        <br></br>
         <div id="game-board"></div>
         <div class="controls">
             <button id="new-game">New Game</button>
-            <button id="generate-sudoku">Generate Sudoku</button>
             <label id="cells-selected">Cells Selected:</label>
             <button id="create-board">Create Sudoku</button>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <div class="side-menu">
+        <label><b>Pre-Made Patterns</b></label>
+        <button id="premade-house">House</button>
+        <button id="premade-stripes">Stripes</button>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </body>
 </html>

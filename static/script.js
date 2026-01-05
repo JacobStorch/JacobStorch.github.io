@@ -1,11 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch and display the initial board
-    loadBoard();
+    start_up();
 
-    // Event listener for New Game button
+    // New Game
     document.getElementById("new-game").addEventListener("click", function () {
-        fetch("/new_game", {
-            method: "POST",
+        fetch("/start_up", {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -19,55 +18,94 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error:", error));
     });
 
+    document.getElementById("premade-house").addEventListener("click", function () {
+        const preset_cells = [
+        [0,0],[0,1],[0, 4],[0,8],
+        [1,3],[1,4],[1, 5],[1,8],
+        [2,2],[2,3],[2,5],[2,6],
+        [3,1],[3,2],[3,6],[3,7],
+        [4,0],[4,1],[4, 3],[4,5],[4,7],[4,8],
+        [5,1],[5,3],[5,5],[5,7],
+        [6,1],[6,7],
+        [7, 1],[7,3],[7,5],[7,7],
+        [8, 1],[8,3],[8,7]
+    ];
+    
+    premade_setup(preset_cells)
+    })
+
+    document.getElementById("premade-stripes").addEventListener("click", function () {
+        const preset_cells = [[0,0],[0,3],[0,6],[1,1],[1,4],[1,7],[2,2],[2,5],[2,8],[3,0],[3,3],[3,6],[4,1],[4,4],[4,7],[5,2],[5,5],[5,8],[6,0],[6,3],[6,6],[7,1],[7,4],[7,7],[8,2],[8,5],[8,8]];
+
+        premade_setup(preset_cells)
+    })
+
+    // Click cell
     document.querySelectorAll('.sudoku-cell').forEach(cell => {
       cell.addEventListener('click', () => {
         cell.classList.toggle('selected');
       });
     });
 
-    // Event listener for Remove Cells button
+    // Create Board
     document.getElementById("create-board").addEventListener("click", function () {
-        fetch("create_board", {
+        
+        let all_cells_arr = []
+        const all_cells = document.querySelectorAll(".sudoku-cell");
+        all_cells.forEach(cell => {
+            all_cells_arr.push([Number(cell.dataset.row), Number(cell.dataset.col)])
+        });
+        
+        let keep_cells = []
+        const selected_cells = document.querySelectorAll(".sudoku-cell.selected");
+        selected_cells.forEach(cell => {
+            keep_cells.push([Number(cell.dataset.row), Number(cell.dataset.col)])
+        });
+
+        let remove_cells = all_cells_arr.filter(element => 
+            !keep_cells.some(keep => keep[0] === element[0] && keep[1] === element[1])
+        );
+
+        console.log("all cells ",all_cells_arr)
+        console.log("keep cells ",keep_cells)
+        console.log("remove cells ",remove_cells)
+
+
+        fetch("/create_board", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
+            body: JSON.stringify({ remove_list: remove_cells })  // send your array
         })
-        .then(response => response.json())
-        .then(board => {
-            create_board()
-            updateGameBoard(data.board);
-            console.log(data.status);
-        })
-    });
-});
-
-function create_board() {
-    const all_cells = document.querySelectorAll(".sudoku-cell");
-    let all_cells_arr = []
-    
-    all_cells.forEach(cell => {
-        all_cells_arr.push([Number(cell.dataset.row), Number(cell.dataset.col)])
-    });
-    
-    let keep_cells = []
-    selectedCells.forEach(cell => {
-        keep_cells.push([Number(cell.dataset.row), Number(cell.dataset.col)])
-    });
-
-    const remove_cells = all_cells_arr.filter(element => !keep_cells.includes(element))
-    console.log(remove_cells)
-    
-    
-}
-
-
-// Function to fetch and display the Sudoku board
-function loadBoard() {
-    fetch("/get_board")
         .then(response => response.json())
         .then(data => {
             updateGameBoard(data.board);
+            console.log(data.status);
+        })
+        .catch(error => console.error("Error:", error));
+    });
+});
+
+
+function premade_setup(presetCells) {
+    document.querySelectorAll(".sudoku-cell").forEach(cell => {
+        const r = Number(cell.dataset.row);
+        const c = Number(cell.dataset.col);
+
+        if (presetCells.some(([pr, pc]) => pr === r && pc === c)) {
+        cell.classList.add("selected");
+        }
+    });
+}
+
+
+function start_up() {
+    fetch("/start_up")
+        .then(response => response.json())
+        .then(data => {
+            updateGameBoard(data.board);
+            console.log(data.board)
         })
         .catch(error => console.error("Error fetching board:", error));
 }
@@ -123,4 +161,6 @@ function create_cells(row, col, cell, board) {
     });
     return cell
 }
+
+
     
