@@ -108,3 +108,15 @@ input[type="number"] {
     margin-right: 10px;
     right: 0;
 }
+
+.about-section {
+    position: fixed;
+    display: fixed;
+    flex-direction: column;
+    top: 100px;
+    margin-top: 0px;
+    margin-left: 10px;
+    left: 0px;
+    max-width: 150px;
+    text-align: justify;
+}

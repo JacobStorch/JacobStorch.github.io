@@ -2,21 +2,23 @@ document.addEventListener("DOMContentLoaded", function () {
     start_up();
 
     // New Game
-    document.getElementById("new-game").addEventListener("click", function () {
-        fetch("/start_up", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
+    document.getElementById("new-game").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    fetch("/start_up")
+        .then(response => {
+            console.log("RAW RESPONSE:", response);
+            return response.text();
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                updateGameBoard(data.board);
-            }
+        .then(text => {
+            console.log("RAW TEXT:", text);
+            const data = JSON.parse(text);
+            console.log("PARSED DATA:", data);
+
+            updateGameBoard(data.board);
         })
-        .catch(error => console.error("Error:", error));
-    });
+        .catch(error => console.error("FETCH ERROR:", error));
+});
 
     document.getElementById("premade-house").addEventListener("click", function () {
         const preset_cells = [
@@ -40,12 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
         premade_setup(preset_cells)
     })
 
-    // Click cell
-    document.querySelectorAll('.sudoku-cell').forEach(cell => {
-      cell.addEventListener('click', () => {
-        cell.classList.toggle('selected');
-      });
-    });
 
     // Create Board
     document.getElementById("create-board").addEventListener("click", function () {
@@ -90,6 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function premade_setup(presetCells) {
     document.querySelectorAll(".sudoku-cell").forEach(cell => {
+         cell.classList.remove("selected");
+
         const r = Number(cell.dataset.row);
         const c = Number(cell.dataset.col);
 

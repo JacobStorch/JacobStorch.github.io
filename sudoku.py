@@ -230,11 +230,12 @@ def update_candidates(): #re-calculate possible candidates on the target cell
 
         
     for coord_a, coord_b in related_cell_pairs:
-        if len(candidate_dict[coord_b]) > 1:
-            row_a, col_a, box_a = coord_a
+        row_a, col_a, box_a = coord_a
+        row_b, col_b, box_b = coord_b
+
+        if (len(candidate_dict[coord_b]) > 1) and (board[row_a][col_a]):
             candidate_dict[coord_b].discard(board[row_a][col_a])
-        if len(candidate_dict[coord_a]) > 1:
-            row_b, col_b, box_b = coord_b
+        if (len(candidate_dict[coord_a]) > 1) and (board[row_b][col_b]):
             candidate_dict[coord_a].discard(board[row_b][col_b])
         
     times["update_candidates_time"] += time.perf_counter() - time_start
