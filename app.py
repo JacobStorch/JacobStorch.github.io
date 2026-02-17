@@ -13,6 +13,12 @@ def get_board():
     board = sudoku.get_current_board()
     return jsonify({"board": board})
 
+@app.route("/get_full_board")
+def get_full_board():
+    board = sudoku.get_full_board()
+    return jsonify({"board": board})
+
+
 @app.route("/create_board", methods=["POST"])
 def create_board():
     data = request.get_json()

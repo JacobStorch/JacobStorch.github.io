@@ -32,6 +32,7 @@ h1 {
     font-size: 20px;
     cursor: pointer;
     background-color: white;
+    position: relative;
 }
 
 .sudoku-cell:hover {
@@ -92,6 +93,10 @@ button:hover {
     background-color: #0056b3;
 }
 
+button:disabled {
+    background-color: gray;
+}
+
 input[type="number"] {
     padding: 8px;
     font-size: 16px;
@@ -119,4 +124,119 @@ input[type="number"] {
     left: 0px;
     max-width: 150px;
     text-align: justify;
+}
+
+.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ccc;
+    border-top: 4px solid #333;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Only center final numbers */
+.given-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.user-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: blue;
+}
+
+/* Candidate grid */
+.candidates {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    font-size: 10px;
+    color: #666;
+    pointer-events: none;
+}
+
+.candidates span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Wrapper aligns label + switch horizontally */
+.switch-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px; /* space between text and switch */
+  cursor: pointer;
+  margin-top: 40px
+}
+
+/* Switch container */
+.switch {
+  position: relative;
+  width: 50px;
+  height: 26px;
+}
+
+/* Hide default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Slider background */
+.slider {
+  position: absolute;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: 0.3s;
+}
+
+/* Knob */
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+/* Checked state */
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider::before {
+  transform: translateX(24px);
 }

@@ -15,14 +15,22 @@
         <div id="game-board"></div>
         <div class="controls">
             <button id="new-game">New Game</button>
-            <label id="cells-selected">Cells Selected:</label>
             <button id="create-board">Create Sudoku</button>
+            <label class="switch-wrapper">
+                <span class="switch-label">Notes </span>
+                <span class="switch">
+                    <input type="checkbox" id="candidate-switch">
+                    <span class="slider"></span>
+                </span>
+            </label>
         </div>
     </div>
+    <div id="loading" class="spinner hidden"></div>
     <div class="side-menu">
         <label><b>Pre-Made Patterns</b></label>
         <button id="premade-house">House</button>
         <button id="premade-stripes">Stripes</button>
+
     </div>
     <div class="about-section">
         <label><b>About</b></label>

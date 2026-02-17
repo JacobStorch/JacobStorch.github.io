@@ -25,6 +25,9 @@ def create_empty_board():
     global candidate_dict
     candidate_dict = {}
 
+    global full_board 
+    full_board = board
+
     time_start = time.perf_counter()
     init_coord_dict()
     init_related_cell_pairs()
@@ -42,12 +45,9 @@ def s_gen():
     rows[0] = random.sample(range(1, 10), k=9) #start with first row randomly generated
     board = rows
     exclude = [[set() for i in range(9)] for j in range(9)]
-    #print(rows)
 
     cols = [[lambda y=x,x=y: rows[y][x] for x in range(9)] for y in range(9)] #link columns to rows
     boxes = [[lambda y=(x//3)+(y//3)*3, x=x%3+(y%3)*3: rows[y][x] for x in range(9)] for y in range(9)]
-
-    #print("cols:", [[func() for func in i] for i in cols])
 
     row = 1 #start at second row
     col = 0
@@ -59,8 +59,6 @@ def s_gen():
             last_square = rows[row][col]
             rows[row][col] = None #make sure the current square is empty
 
-            #print()
-            #[print(row) for row in rows]
             if col==0:
                 last_col = 8
                 last_row = row - 1
@@ -73,10 +71,6 @@ def s_gen():
             exclude[row][col].update(cur_exclude)
             cur_exclude = exclude[row][col]
             allowed_numbers = [i for i in range(1,10) if i not in cur_exclude]
-
-            #print("exclude",cur_exclude)
-            #print("include",allowed_numbers)
-            #print("----------")
 
             if len(allowed_numbers) == 0: #if no valid digits left
                 exclude_last = 1 #exclude the last square
@@ -95,11 +89,10 @@ def s_gen():
             
 
     print_sudoku(board)
-    #print("cols:", [[func() for func in i] for i in cols])
-    #print("boxes:", [[func() for func in i] for i in boxes])
+    full_board = copy.deepcopy(board)
 
 
-def print_sudoku(board): #gptd
+def print_sudoku(board):
     for row_index, row in enumerate(board):
         # Format each row into groups of 3 for better readability
         formatted_row = " | ".join(
@@ -367,6 +360,9 @@ def init_family_groups():
 
 def get_current_board():
     return board
+
+def get_full_board():
+    return full_board
 
 def try_again(r_list):
     global tries
