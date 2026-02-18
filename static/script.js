@@ -44,16 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Switch")
         const candidates = document.querySelector(".candidates");
         const candidate_switch = document.getElementById("candidate-switch");
-        note_mode = candidate_switch.checked
-        if (note_mode) {
-            document.querySelectorAll(".candidates").forEach(candidates => {
-                candidates.style.display = "grid";
-            });
-        } else {
-            document.querySelectorAll(".candidates").forEach(candidates => {
-                candidates.style.display = "none";
-            });
-}
+        note_mode = candidate_switch.checked;
     })
 
     document.getElementById("create-board").addEventListener("click", function () {
@@ -206,28 +197,8 @@ function create_cells(row, col, cell, board) {
 
     cell.addEventListener("click", function (e) {
         if (cell.dataset.locked === "true") return;
-
-        // Clear other selections
         document.querySelectorAll(".sudoku-cell").forEach(c => c.classList.remove("selected"));
-
-        if (note_mode) {
-            // Show / toggle candidate grid instead of selecting the cell
-            const candidates = cell.querySelector(".candidates");
-            if (candidates) {
-                // toggle visibility
-                candidates.style.display = candidates.style.display === "grid" ? "none" : "grid";
-                if (e.target.tagName === "SPAN") {
-                    console.log(`Candidate clicked: ${e.target.textContent} at ${row},${col}`);
-                }
-            }
-        } else {
-            // Normal mode: select the cell
-            cell.classList.add("selected");
-
-            // hide candidates if they exist
-            const candidates = cell.querySelector(".candidates");
-            if (candidates) candidates.style.display = "none";
-        }
+        cell.classList.add("selected");
     });
 
     return cell;
@@ -250,7 +221,7 @@ function update_cells(row,col,cell,board) {
 
         cell.appendChild(numberDiv);
         cell.classList.add("has-value");
-        cell.dataset.locked = "true";   // 🔒 mark as locked
+        cell.dataset.locked = "true";
         console.log("cd E",cellData);
         return cell;
     }
@@ -271,22 +242,36 @@ function update_cells(row,col,cell,board) {
 document.addEventListener("keydown", function (e) {
     if (!play_mode) return;
 
-    const selectedCell = document.querySelector(".sudoku-cell.selected");
-    if (!selectedCell) return;
-    if (selectedCell.dataset.locked === "true") return;
+    const selected_cell = document.querySelector(".sudoku-cell.selected");
+    if (!selected_cell) return;
+    if (selected_cell.dataset.locked === "true") return;
 
-    const row = +selectedCell.dataset.row;
-    const col = +selectedCell.dataset.col;
+    const row = +selected_cell.dataset.row;
+    const col = +selected_cell.dataset.col;
 
-    if (e.key === "Backspace" || e.key === "Delete") {
-        current_board[row][col].user = null;
-        update_cells(row,col,selectedCell,current_board);
-        return;
-    }
+    if (note_mode) {
+        if (/^[1-9]$/.test(e.key)) {
+            console.log("step a")
+            const user_val = Number(e.key);
+            const candidates = selected_cell.querySelector(".candidates");
+            const user_candidate = candidates.querySelector('[data-value="'+String(user_val)+'"]');
+            console.log(user_candidate)
+            if (user_candidate) {
+                user_candidate.classList.toggle("hidden");
+            }
+        }
 
-    if (/^[1-9]$/.test(e.key)) {
-        current_board[row][col].user = Number(e.key);
-        update_cells(row,col,selectedCell,current_board);
+    } else {
+        if (e.key === "Backspace" || e.key === "Delete") {
+            current_board[row][col].user = null;
+            update_cells(row,col,selected_cell,current_board);
+            return;
+        }
+
+        if (/^[1-9]$/.test(e.key)) {
+            current_board[row][col].user = Number(e.key);
+            update_cells(row,col,selected_cell,current_board);
+        }
     }
 });
 
@@ -301,24 +286,15 @@ function hideLoading() {
 function createCandidates() {
     const container = document.createElement("div");
     container.classList.add("candidates");
-    container.style.display = "none"; // initially hidden
 
     for (let i = 1; i <= 9; i++) {
         const span = document.createElement("span");
         span.textContent = i;
+        span.dataset.value = i;
+        span.classList.toggle("hidden");
         container.appendChild(span);
     }
 
-    container.addEventListener("click", function(e) {
-        if (e.target.tagName === "SPAN") {
-            const selectedCell = container.parentElement;
-            const row = +selectedCell.dataset.row;
-            const col = +selectedCell.dataset.col;
-
-            // write the pencil note (you can store it in cellData.user or a separate notes array)
-            console.log(`Candidate clicked: ${e.target.textContent} at ${row},${col}`);
-        }
-    });
 
     return container;
 }

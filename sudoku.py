@@ -376,7 +376,3 @@ def try_again(r_list):
         remove_init(r_list, tries==max_tries)
     else:
         end_print(False)
-
-
-
-
