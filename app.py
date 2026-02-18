@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import sudoku  # Assuming you have sudoku.py with game logic
+import os
 
 app = Flask(__name__)
 
